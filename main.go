@@ -16,7 +16,13 @@ type Response struct {
 }
 
 func UptimeServer() string {
-	readFile, err := os.Open("/proc/uptime")
+	// 	Vagrant.configure("2") do |config|
+	// //   # other config here
+
+	//   config.vm.synced_folder "src/", "/srv/website"
+	// end
+
+	readFile, err := os.Open("uptime.txt")
 
 	if err != nil {
 		fmt.Println(err)
@@ -40,5 +46,5 @@ func main() {
 	router.GET("/status", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{"status": "ok", "uptime": UptimeServer()})
 	})
-	router.Run()
+	router.Run(":8000")
 }
